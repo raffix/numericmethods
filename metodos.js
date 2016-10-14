@@ -1,3 +1,9 @@
+	function replaceX(funcao, x)
+	{
+		var expression = /[xX]/g;
+		return funcao.replace(expression,String(x));
+	}
+
     function limpar(metodo)
     {
     	$(metodo).find('input').each(
@@ -18,7 +24,7 @@
     		fx = math.eval(funcao.replace(	"x",String(x)));
     		data.push([x,fx]);
     	}
-   	}
+	}
     
     function bisseccao()
     {
@@ -34,17 +40,20 @@
 		i = parseInt(0);
 		
 		//drawChart(a, b, funcao);
-		
+		console.log(fx);
 		while (Math.abs(fx) > epson) {
 			x = (a + b)/2;
-			fx = math.eval(funcao.replace("x",String(x)));
-			fa = math.eval(funcao.replace("x",String(a)));
+			fx = math.eval(replaceX(funcao,x));
+			fa = math.eval(replaceX(funcao,a));
 			if ((fx * fa) > 0 ) {
 				a = x;
 			} else {
 				b = x;
 			}
 			
+			if (i > 1000 ){
+				break;
+			}
 			i++;
 		}
 		
