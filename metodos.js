@@ -97,20 +97,41 @@
 		$('#cordasX').html(String(x));
 	}
 	
-	function newton()
+function newton()
 	{
-		var funcao, intervalo, epson, x, a, b, fx, fdx, fdxx, i;
+		var funcao, auxfuncao, intervalo, epson, x, a, b, fx, fdx, auxFdx, fdxx, i;
 		
-		funcao 	  = $('#cordasFormula').val();
-		intervalo = $('#cordasIntervalo').val().split("/");
-		epson 	  = parseFloat($('#cordasEpson').val());
-		fdx 	  = $('#cordasDerivadaUm').val();
-		fdxx 	  = $('#cordasDerivadaDois').val();
+		funcao 	  = $('#newtonFormula').val();
+		intervalo = $('#newtonIntervalo').val().split("/");
+		epson 	  = parseFloat($('#newtonEpson').val());
+		fdx 	  = $('#newtonDerivadaUm').val();
+		fdxx 	  = $('#newtonDerivadaDois').val();
 		
-		while (true){
-			
+		a  = parseFloat(intervalo[0]);
+		b  = parseFloat(intervalo[1]);
+		auxFdx = fdx; //auxiliar da derivada, para deixar a função como string para calcular.
+		auxFuncao = funcao; //auxiliar da funcao, para deixar a função como string para calcular.
+		x = a;
+		fdx = math.eval(fdx.replace(/x/g,String(x)));
+		fdxx = math.eval(fdxx.replace(/x/g,String(x)));
+		if(fdx * fdxx > 0) 
+		{
+			x = b;			
 		}
+		else{
+			x = a;						
+		}		
+		funcao = math.eval(funcao.replace(/x/g,String(x)));		
+		fdx = math.eval(auxFdx.replace(/x/g,String(x)));
+		i = 0;				
+		while(Math.abs(funcao) > epson && i<200){		
+			x = x-(funcao/fdx); 
+			funcao = math.eval(auxFuncao.replace(/x/g,String(x)));
+			fdx = math.eval(auxFdx.replace(/x/g,String(x)));	
+			i++;			
+		}
+		
+		$('#newtonIteracoes').html(String(i));
+		$('#newtonX').html(String(x));
 			
-	}
-	
-	
+}	
