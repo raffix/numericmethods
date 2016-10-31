@@ -180,7 +180,7 @@ function newton()
 function matrixParser(x){
 	var order = x.indexOf(";");
 	order = (order+1)/2; 
-	x = x.replace(/;/g," ");
+	x = x.replace(/;/g,"");
 	var y = x.split(" "); 
 	var matrix = [], i, k;
     for (i = 0, k = -1; i < y.length; i++) {
