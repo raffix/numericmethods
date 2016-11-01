@@ -12,8 +12,8 @@
 			<div class="col s12 m12">
 				<nav>
 					<div class="nav-wrapper green darken-3">
-					 	<ul id="nav-mobile" class="hide-on-med-and-down">
-						 	<li><a href="index.html">Raízes</a></li>
+					  	<ul id="nav-mobile" class="hide-on-med-and-down">
+							<li><a href="index.html">Raízes</a></li>
 							<li><a href="sistemas.html">Sistemas Lineares</a></li>
 							<li><a href="interpolacao.html">Interpolação</a></li>
 					  	</ul>
@@ -21,20 +21,20 @@
 				</nav>
 			</div>
 		</div>
-		<div class="row" id="bisseccao">
+		<div class="row" id="lagrange">
 			<div class="col s12 m6">
 				<div class="card purple darken-1">
 					<div class="card-content white-text">
 						<span class="card-title">Bissecção</span>
 						<div class="entradas s12 m6">
-							<input type="text" id="bisseccaoFormula" placeholder="Equação / formula ex: (x^2)-3">
-							<input type="text" id="bisseccaoIntervalo" placeholder="Informe o intervalo ex: 1/2">
-							<input type="text" id="bisseccaoEpson" placeholder="Informe o epson ou precisão ex: 0.001">
+							<input type="text" id="lagrangeX" placeholder="Valores de X. Ex: 1;2;3.5;">
+							<input type="text" id="lagrangeY" placeholder="Valores de Y. Ex: 1.8;2.3;5;">
+							<input type="text" id="lagrangeValor" placeholder="Valor a interpolar.">
 						</div>
 					</div>
 					<div class="card-action">
-						<button class="waves-effect waves-light btn green darken-1" onclick="bisseccao()" >Calcular</button>
-						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#bisseccao")' >Limpar</button>
+						<button class="waves-effect waves-light btn green darken-1" onclick="lagrange()" >Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#lagrange")'>Limpar</button>
 						
 					</div>
 	        	</div>
