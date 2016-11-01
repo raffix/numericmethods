@@ -24,14 +24,7 @@
 		var expression = /[xX]/g;
 		return funcao.replace(expression,String(x));
 	}
-	function substitui(funcao)
-    	{
-    		if(funcao.match(/e^/)){
-    			funcao = funcao.replace("e",math.e);
-    		}
-		return funcao;
-    	}
-	
+
     function limpar(metodo)
     {
     	$(metodo).find('input').each(
@@ -184,9 +177,11 @@ function newton()
 			
 }
 
-function matrixParser(x){
-	var order = x.indexOf(";");
-	order = (order+1)/2;		
+function matrixParser(x, order){
+	//var order = x.indexOf(";");
+	//order = (order+1)/2;
+	var p = x.indexOf(";");
+    order = parseFloat(order.charAt(0));
 	x = x.replace(/;/g,"");
 	var y = x.split(" "); 
 	var matrix = [], i, k;
@@ -206,7 +201,8 @@ function Jacobi() {
 	$('#JacobiX').html(" ");
 	var matriz = $('#JacobiA').val();
 	var bb = $('#JacobiB').val();
-	var A = matrixParser(matriz);
+	var order = $('#JacobiOrder').val();
+	var A = matrixParser(matriz, order);
 	var XX = $('#JacobiX0').val();
 	var X = XX.split(" ");
 	var x = new Array();
@@ -253,7 +249,8 @@ function Jacobi() {
 function gaussJacobi() {
 	var matriz = $('#GaussA').val();
 	var bb = $('#GaussB').val();
-	var A = matrixParser(matriz);
+	var order = $('#GaussOrder').val();
+	var A = matrixParser(matriz, order);
 	var XX = $('#GaussX0').val();
 	var X = XX.split(" ");
 	var x = new Array();
