@@ -89,6 +89,7 @@
 		funcao = $('#cordasFormula').val();
 		intervalo = $('#cordasIntervalo').val().split("/");
 		epson = parseFloat($('#cordasEpson').val());
+		funcao = substitui(funcao);
 		
 		a  = parseFloat(intervalo[0]);
 		b  = parseFloat(intervalo[1]);
