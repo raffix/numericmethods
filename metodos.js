@@ -25,15 +25,15 @@
 		return funcao.replace(expression,String(x));
 	}
 
-    function limpar(metodo)
-    {
-    	$(metodo).find('input').each(
-    		function()
-    		{
-    			$(this).val("");
-    		}
-    	);
-    }
+    	function limpar(metodo)
+    	{
+    		$(metodo).find('input').each(
+    			function()
+    			{
+    				$(this).val("");
+    			}
+    		);
+    	}
    
     
     function drawChart(data, annotat, metodo)
@@ -92,10 +92,10 @@
 		
 		a  = parseFloat(intervalo[0]);
 		b  = parseFloat(intervalo[1]);
-		fa = math.eval(funcao.replace("x",String(a)));
-		fb = math.eval(funcao.replace("x",String(b)));
+		fa = math.eval(replaceX(funcao,a));
+		fb = math.eval(replaceX(funcao,b));
 		x  = (b* fa - a*fb)/(fa-fb);
-		fx = math.eval(funcao.replace("x",String(x)));
+		fx = math.eval(replaceX(funcao,String(x)));
 		i  = parseInt(0);
 		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
 		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
@@ -104,7 +104,7 @@
 		if(fa * fx > 0) {
 			while (Math.abs(fx) > epson) {
 				x  = ((x* fa) - (a*fx))/(fa-fx);
-				fx = math.eval(funcao.replace("x",String(x)));
+				fx = math.eval(replaceX(funcao,String(x)));
 				i++;
 				data += ',{ "points": [['+x+', -1],['+x+', 1]], "fnType": "points", "graphType": "polyline"}';
 				annotat += ',{"x": '+x+'}';
@@ -112,7 +112,7 @@
 		} else {
 			while (Math.abs(fx) > epson ){
 				x = ((b* fx) - (x*fb))/(fx-fb);
-				fx = math.eval(funcao.replace("x",String(x)));
+				fx = math.eval(replaceX(funcao,String(x)));
 				i++;
 				data += ',{ "points": [['+x+', -1],['+x+', 1]], "fnType": "points", "graphType": "polyline"}';
 				annotat += ',{"x": '+x+'}';
@@ -123,7 +123,7 @@
 		$('#cordasX').html(String(x));
 	}
 	
-function newton()
+	function newton()
 	{
 		$('#plotNewton').html(" ");
 		var funcao, auxfuncao, intervalo, epson, x, a, b, fx, fdx, auxFdx, fdxx, i;
@@ -175,181 +175,180 @@ function newton()
 		$('#newtonIteracoes').html(String(i));
 		$('#newtonX').html(String(x));
 			
-}
+	}
 
-function matrixParser(x){
-	var order = x.indexOf(";");
-	order = (order+1)/2; 
-	x = x.replace(/;/g,"");
-	var y = x.split(" "); 
-	var matrix = [], i, k;
-    for (i = 0, k = -1; i < y.length; i++) {
-        if (i % order === 0) {
-            k++;
-            matrix[k] = [];
-        }
-        matrix[k].push(y[i]);
-    }
-	return matrix;
-	
-}
+	function matrixParser(x){
+		var order = x.indexOf(";");
+		order = (order+1)/2; 
+		x = x.replace(/;/g,"");
+		var y = x.split(" "); 
+		var matrix = [], i, k;
+	    for (i = 0, k = -1; i < y.length; i++) {
+		if (i % order === 0) {
+		    k++;
+		    matrix[k] = [];
+		}
+		matrix[k].push(y[i]);
+	    }
+		return matrix;
 
-function Jacobi() {
-	$('#JacobiIteracoes').html(" ");
-	$('#JacobiX').html(" ");
-	var matriz = $('#JacobiA').val();
-	var bb = $('#JacobiB').val();
-	var A = matrixParser(matriz);
-	var XX = $('#JacobiX0').val();
-	var X = XX.split(" ");
-	var x = new Array();
-	var E = parseFloat($('#JacobiEpson').val());
-	var b = bb.split(" ");
-	if (XX.length == 0) {	
-		for (var k = 0; k < b.length; k++)
+	}
+
+	function Jacobi() {
+		$('#JacobiIteracoes').html(" ");
+		$('#JacobiX').html(" ");
+		var matriz = $('#JacobiA').val();
+		var bb = $('#JacobiB').val();
+		var A = matrixParser(matriz);
+		var XX = $('#JacobiX0').val();
+		var X = XX.split(" ");
+		var x = new Array();
+		var E = parseFloat($('#JacobiEpson').val());
+		var b = bb.split(" ");
+		if (XX.length == 0) {	
+			for (var k = 0; k < b.length; k++)
+			{
+				X[k] = Math.floor((Math.random() * 10000) + 1);
+			}
+		}	
+		var m = 1000;//Numero máximo de iterações
+		var ni = 0;//Contador de iterações
+		var continuar = true;
+		var inter;
+
+		while (continuar && ni < m) {
+		    for (var i=0; i < b.length; i++) {
+			soma = 0;
+			for (var j = 0; j < b.length; j++) {
+			    if (j != i) {
+				soma = soma + A[i][j]*X[j]/A[i][i];
+			    }
+			    x[i] = (b[i]/A[i][i]) - soma;
+			}
+			}
+			inter = Math.abs(math.norm(x) - math.norm(X));
+		    if (inter < E) {
+			continuar = false;
+			} else {
+			X=x.slice(0);
+			}
+		    ni = ni + 1;
+		}
+		$('#JacobiIteracoes').html(String(ni));
+		for (i=0;i<X.length;i++)
 		{
-			X[k] = Math.floor((Math.random() * 10000) + 1);
+		$('#JacobiX').append("X["+i+"] = " + X[i] + "<br>");
 		}
-	}	
-	var m = 1000;//Numero máximo de iterações
-	var ni = 0;//Contador de iterações
-	var continuar = true;
-	var inter;
 
-	while (continuar && ni < m) {
-	    for (var i=0; i < b.length; i++) {
-	        soma = 0;
-	        for (var j = 0; j < b.length; j++) {
-	            if (j != i) {
-	                soma = soma + A[i][j]*X[j]/A[i][i];
-	            }
-	            x[i] = (b[i]/A[i][i]) - soma;
-	        }
-		}
-		inter = Math.abs(math.norm(x) - math.norm(X));
-	    if (inter < E) {
-	        continuar = false;
-		} else {
-	        X=x.slice(0);
-		}
-	    ni = ni + 1;
 	}
-	$('#JacobiIteracoes').html(String(ni));
-	for (i=0;i<X.length;i++)
-	{
-	$('#JacobiX').append("X["+i+"] = " + X[i] + "<br>");
+
+
+	function gaussJacobi() {
+		var matriz = $('#GaussA').val();
+		var bb = $('#GaussB').val();
+		var A = matrixParser(matriz);
+		var XX = $('#GaussX0').val();
+		var X = XX.split(" ");
+		var x = new Array();
+		var E = parseFloat($('#GaussEpson').val());
+		var b = bb.split(" ");
+		if (XX.length == 0) {	
+			for (var k = 0; k < b.length; k++)
+			{
+				X[k] = Math.floor((Math.random() * 10000) + 1);
+			}
+		}	
+		var m = 1000;//Numero máximo de iterações
+		var ni = 0;//Contador de iterações
+		var continuar = true;
+		var inter;
+
+		while (continuar && ni < m) {
+		    for (var i=0; i < b.length; i++) {
+			soma = 0;
+			for (var j = 0; j < b.length; j++) {
+			    if (j != i) {
+				soma = soma + A[i][j]*X[j]/A[i][i];
+			    }
+			    x[i] = (b[i]/A[i][i]) - soma;
+			}
+			}
+			inter = Math.abs(math.norm(x) - math.norm(X));
+		    if (inter < E) {
+			continuar = false;
+			} else {
+			X=x.slice(0);
+			}
+		    ni = ni + 1;
+		}
+		$('#GaussIteracoes').html(String(ni));
+		$('#GaussX').html(String(X));
 	}
-	
-}
 
 
-function gaussJacobi() {
-	var matriz = $('#GaussA').val();
-	var bb = $('#GaussB').val();
-	var A = matrixParser(matriz);
-	var XX = $('#GaussX0').val();
-	var X = XX.split(" ");
-	var x = new Array();
-	var E = parseFloat($('#GaussEpson').val());
-	var b = bb.split(" ");
-	if (XX.length == 0) {	
-		for (var k = 0; k < b.length; k++)
-		{
-			X[k] = Math.floor((Math.random() * 10000) + 1);
-		}
-	}	
-	var m = 1000;//Numero máximo de iterações
-	var ni = 0;//Contador de iterações
-	var continuar = true;
-	var inter;
+	function lagrange(){
 
-	while (continuar && ni < m) {
-	    for (var i=0; i < b.length; i++) {
-	        soma = 0;
-	        for (var j = 0; j < b.length; j++) {
-	            if (j != i) {
-	                soma = soma + A[i][j]*X[j]/A[i][i];
-	            }
-	            x[i] = (b[i]/A[i][i]) - soma;
-	        }
+
+		var saida, temp, i, j;
+
+		saida = 0.0;
+		for(i=0; i<ordem; i++){
+			temp = 1.0;
+			for(j=0; j<ordem; j++){
+				if (i != j) {
+					temp = temp * ((valor-x[j])/(x[i]-x[j]));
+				}
+			}
+			saida = saida + ( y[i] * temp);
 		}
-		inter = Math.abs(math.norm(x) - math.norm(X));
-	    if (inter < E) {
-	        continuar = false;
-		} else {
-	        X=x.slice(0);
-		}
-	    ni = ni + 1;
 	}
-	$('#GaussIteracoes').html(String(ni));
-	$('#GaussX').html(String(X));
-}
 
+	function divididas(){
 
-function lagrange(){
+		var saida, temp, diferenca[ordem][ordem], i, j;
 
+		for(i=1; i<ordem; i++){
+			diferenca[i][0]= ((y[i+1] - y[i])/(x[i+1]-x[i]));
+		}
 
-	var saida, temp, i, j;
-
-	saida = 0.0;
-	for(i=0; i<ordem; i++){
-		temp = 1.0;
-		for(j=0; j<ordem; j++){
-			if (i != j) {
-				temp = temp * ((valor-x[j])/(x[i]-x[j]));
+		for(j=1; j<ordem; j++){
+			for(i=1; i<ordem; i++){
+				diferenca[i][j] = ((diferenca[i+1][j-1]- diferenca[i][j-1])/(x[i+j]-x[i]));
 			}
 		}
-		saida = saida + ( y[i] * temp);
-	}
-}
 
-function divididas(){
-
-	var saida, temp, diferenca[ordem][ordem], i, j;
-
-	for(i=1; i<ordem; i++){
-		diferenca[i][0]= ((y[i+1] - y[i])/(x[i+1]-x[i]));
-	}
-
-	for(j=1; j<ordem; j++){
+		saida = diferenca[0][0];
 		for(i=1; i<ordem; i++){
-			diferenca[i][j] = ((diferenca[i+1][j-1]- diferenca[i][j-1])/(x[i+j]-x[i]));
+			temp =  1.0;
+			for(j=0; j<i-1; j++){
+				temp = temp * (valor - x[j]);
+			}
+			saida = saida + ( diferenca[0][i] * temp);
 		}
+
 	}
 
-	saida = diferenca[0][0];
-	for(i=1; i<ordem; i++){
-		temp =  1.0;
-		for(j=0; j<i-1; j++){
-			temp = temp * (valor - x[j]);
+	function finitas(){
+
+		var saida, temp, finita[ordem], i, n, z = abs(x[1]-x[0]);
+
+		for(i=0; i<ordem; i++){
+			finita[i][0] = y[i+1]-y[i];
 		}
-		saida = saida + ( diferenca[0][i] * temp);
-	}
 
-}
+		for(j=1; j<ordem; j++){
+			for(i=1; i<ordem; i++){
+				finita[i][j] = finita[i+1][j-1] - finita[i][j-1];
+			}
+		}
 
-function finitas(){
-
-	var saida, temp, finita[ordem], i, n, z = abs(x[1]-x[0]);
-	
-	for(i=0; i<ordem; i++){
-		finita[i][0] = y[i+1]-y[i];
-	}
-	
-	for(j=1; j<ordem; j++){
+		saida = finita[0][0];
 		for(i=1; i<ordem; i++){
-			finita[i][j] = finita[i+1][j-1] - finita[i][j-1];
+			temp = 1.0;
+			for(j=0; j<i-1; j++){
+				temp = temp * (z-j);
+			}
+			saida = saida + (finita[0][i]*temp);
 		}
+
 	}
-	
-	saida = finita[0][0];
-	for(i=1; i<ordem; i++){
-		temp = 1.0;
-		for(j=0; j<i-1; j++){
-			temp = temp * (z-j);
-		}
-		saida = saida + (finita[0][i]*temp);
-	}
-	
-}
-	
