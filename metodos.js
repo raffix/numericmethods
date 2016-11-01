@@ -186,7 +186,7 @@ function newton()
 
 function matrixParser(x){
 	var order = x.indexOf(";");
-	order = (order+1)/2; 
+	order = (order+1)/2;		
 	x = x.replace(/;/g,"");
 	var y = x.split(" "); 
 	var matrix = [], i, k;
@@ -273,23 +273,26 @@ function gaussJacobi() {
 	while (continuar && ni < m) {
 	    for (var i=0; i < b.length; i++) {
 	        soma = 0;
-	        for (var j = 0; j < b.length; j++) {
-	            if (j != i) {
-	                soma = soma + A[i][j]*X[j]/A[i][i];
-	            }
-	            x[i] = (b[i]/A[i][i]) - soma;
+	        for (var j = 0; j < i; j++) {
+                	soma = soma + A[i][j] * x[j];
 	        }
-		}
-		inter = Math.abs(math.norm(x) - math.norm(X));
-	    if (inter < E) {
+	        for (var j = i + 1; j < b.length; j++) {
+                	soma = soma + A[i][j] * X[j];
+	        }
+		x[i] = (b[i] - soma) / A[i][i];
+	    }	    
+	    if (Math.abs(math.norm(x) - math.norm(X)) < E) {
 	        continuar = false;
-		} else {
+	    } else {
 	        X=x.slice(0);
-		}
+	    }
 	    ni = ni + 1;
 	}
 	$('#GaussIteracoes').html(String(ni));
-	$('#GaussX').html(String(X));
+	for (i=0;i<X.length;i++)
+	{
+	$('#GaussX').append("X["+i+"] = " + X[i] + "<br>");
+	}
 }
 
 
