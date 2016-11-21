@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+	<title>Métodos Numéricos</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m12">
+				<nav>
+					<div class="nav-wrapper green darken-3">
+					  <ul id="nav-mobile" class="hide-on-med-and-down">
+						<li><a href="index.html">Raízes</a></li>
+						<li><a href="sistemas.html">Sistemas Lineares</a></li>
+					  </ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="row" id="Jacobi">
+			<div class="col s12 m6">
+				<div class="card purple darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">Jacobi</span>
+						<div class="entradas s12 m6">
+							<input type="text" id="JacobiOrder" placeholder="Informe a ordem da matriz(quadrádica) ex: 3x3">
+							<input type="text" id="JacobiA" placeholder="Informe a matriz dos sistemas(A) ex: 2 1 1; 1 3 1; 1 1 4">
+							<input type="text" id="JacobiB" placeholder="Informe a matriz dos resultados(B) ex: 5 3 4">
+							<input type="text" id="JacobiX0" placeholder="X[0] ex: 0 0 0">
+							<input type="text" id="JacobiEpson" placeholder="Informe o epson ou precisão ex: 0.001"							
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="waves-effect waves-light btn green darken-1" onclick="Jacobi()">Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#Jacobi")' >Limpar</button>
+						
+					</div>
+	        	</div>
+	        </div>
+	       	<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	        		<div class="card-content white-text">
+	          			<span class="card-title">Resultado</span>
+	          			<div class="saidas s12 m6">
+							<p>Número de iterações : <span id="JacobiIteracoes"></span></p>
+							<p>Valor de X : <span id="JacobiX"></span></p>
+						</div>
+					</div>
+	          </div>
+			</div>			
+		</div>
+		<div class="row" id="GaussSeidel">
+			<div class="col s12 m6">
+				<div class="card purple darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">Gauss Seidel</span>
+						<div class="entradas s12 m6">
+							<input type="text" id="GaussOrder" placeholder="Informe a ordem da matriz(quadrádica) ex: 3x3">
+							<input type="text" id="GaussA" placeholder="Informe a matriz dos sistemas(A) ex: 2 1 1; 1 3 1; 1 1 4">
+							<input type="text" id="GaussB" placeholder="Informe a matriz dos resultados(B) ex: 5 3 4">
+							<input type="text" id="GaussX0" placeholder="X[0] ex: 0 0 0">
+							<input type="text" id="GaussEpson" placeholder="Informe o epson ou precisão ex: 0.001"							
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="waves-effect waves-light btn green darken-1" onclick="gaussJacobi()">Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#Jacobi")' >Limpar</button>
+						
+					</div>
+	        	</div>
+	        </div>
+	       	<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	        		<div class="card-content white-text">
+	          			<span class="card-title">Resultado</span>
+	          			<div class="saidas s12 m6">
+							<p>Número de iterações : <span id="GaussIteracoes"></span></p>
+							<p>Valor de X : <span id="GaussX"></span></p>
+						</div>
+					</div>
+	          </div>
+			</div>			
+		</div>	
+		
+		
+	</div>
+	<script type="text/javascript" src="jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="math.js"></script>
+	<script type="text/javascript" src="metodos.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
+</body>
+</html>
