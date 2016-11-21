@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 	var aborta = 15000;
 
 	// media query ---- Em desenvolvimento....
->>>>>>> master
 	var chartWidth = 500;
 	var chartHeight = 500;
 	
@@ -23,14 +20,9 @@
 		chartHeight = 200;
 	  }
 
-	}
-<<<<<<< HEAD
-
-=======
-	
+	}	
 	//----------------
 	
->>>>>>> master
 	function replaceX(funcao, x)
 	{
 		var expression = /[xX]/g;
@@ -54,26 +46,12 @@
     		}
     	);
     }
-<<<<<<< HEAD
-       
-    function drawChart(a, b, funcao)
-    {
-    	var data =[];
-    	var intervalo, x, fx;
-    	intervalo = parseFloat((b-a)/10);
-    	for (x = intervalo; x < b; x +=intervalo) {
-    		fx = math.eval(funcao.replace(	"x",String(x)));
-    		data.push([x,fx]);
-    	}
-=======
    
-    
     function drawChart(data, annotat, metodo)
     {    	
 		//var Steste = '{	"target": "'+metodo+'", "width": '+chartWidth+', "height": '+chartWidth+',"xAxis": { "label": "real" }, "yAxis": { "label": "imaginary"},"grid": "true","data": ['+data+'], "annotations": ['+annotat+']}';
 		//functionPlot(JSON.parse(Steste));
 		
->>>>>>> master
 	}
 
 	function exibeErro()
@@ -94,20 +72,10 @@
 		a = parseFloat(intervalo[0]);
 		b = parseFloat(intervalo[1]);
 		fx = parseFloat(1);
-<<<<<<< HEAD
-		i = parseInt(0);		
-		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
-		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
-<<<<<<< HEAD
-=======
 		i = parseInt(0);
 		
 		//drawChart(a, b, funcao);
->>>>>>> 7fdaa416c23189a4fec2f000137e22238af49b3f
-		console.log(fx);
-=======
 
->>>>>>> master
 		while (Math.abs(fx) > epson) {
 			x = (a + b)/2;
 			fx = math.eval(replaceX(funcao,x));
@@ -117,19 +85,8 @@
 			} else {
 				b = x;
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
-			data += ',{ "points": [['+x+', -1],['+x+', 1]], "fnType": "points", "graphType": "polyline"}';
-			annotat += ',{"x": '+x+'}';
-=======
-			
->>>>>>> 7fdaa416c23189a4fec2f000137e22238af49b3f
-			if (i > 1000 ){
-=======
-
 			if (i > aborta) {
 				exibeErro();
->>>>>>> master
 				break;
 			}
 			i++;
