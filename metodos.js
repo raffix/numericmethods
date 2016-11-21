@@ -46,8 +46,8 @@
     
     function drawChart(data, annotat, metodo)
     {    	
-		var Steste = '{	"target": "'+metodo+'", "width": '+chartWidth+', "height": '+chartWidth+',"xAxis": { "label": "real" }, "yAxis": { "label": "imaginary"},"grid": "true","data": ['+data+'], "annotations": ['+annotat+']}';
-		functionPlot(JSON.parse(Steste));
+		//var Steste = '{	"target": "'+metodo+'", "width": '+chartWidth+', "height": '+chartWidth+',"xAxis": { "label": "real" }, "yAxis": { "label": "imaginary"},"grid": "true","data": ['+data+'], "annotations": ['+annotat+']}';
+		//functionPlot(JSON.parse(Steste));
 		
 	}
     
