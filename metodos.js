@@ -1,5 +1,4 @@
 	var aborta = 15000;
-
 	// media query ---- Em desenvolvimento....
 	var chartWidth = 500;
 	var chartHeight = 500;
@@ -275,6 +274,8 @@
 
 	function gaussJacobi() 
 	{
+		$('#GaussIteracoes').html(" ");
+		$('#GaussX').html(" ");
 		var matriz = $('#GaussA').val();
 		var bb = $('#GaussB').val();
 		var order = $('#GaussOrder').val();
