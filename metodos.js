@@ -20,7 +20,7 @@
 		chartHeight = 200;
 	  }
 
-	}	
+	}
 	//----------------
 	
 	function replaceX(funcao, x)
