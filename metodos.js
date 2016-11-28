@@ -264,6 +264,7 @@
 		    ni = ni + 1;
 		}
 		$('#JacobiIteracoes').html(String(ni));
+		$('#JacobiX').append("<br>");
 		for (i=0;i<X.length;i++)
 		{
 		$('#JacobiX').append("X["+i+"] = " + X[i] + "<br>");
@@ -313,6 +314,7 @@
 		    ni = ni + 1;
 		}
 		$('#GaussIteracoes').html(String(ni));
+		$('#GaussX').append("<br>");
 		for (i=0;i<X.length;i++)
 		{
 		$('#GaussX').append("X["+i+"] = " + X[i] + "<br>");
