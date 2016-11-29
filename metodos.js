@@ -1,5 +1,4 @@
 	var aborta = 15000;
-
 	// media query ---- Em desenvolvimento....
 	var chartWidth = 500;
 	var chartHeight = 500;
@@ -263,6 +262,7 @@
 		    ni = ni + 1;
 		}
 		$('#JacobiIteracoes').html(String(ni));
+		$('#JacobiX').append("<br>");
 		for (i=0;i<X.length;i++)
 		{
 		$('#JacobiX').append("X["+i+"] = " + X[i] + "<br>");
@@ -273,6 +273,8 @@
 
 	function gaussJacobi() 
 	{
+		$('#GaussIteracoes').html(" ");
+		$('#GaussX').html(" ");
 		var matriz = $('#GaussA').val();
 		var bb = $('#GaussB').val();
 		var order = $('#GaussOrder').val();
@@ -312,6 +314,7 @@
 		    ni = ni + 1;
 		}
 		$('#GaussIteracoes').html(String(ni));
+		$('#GaussX').append("<br>");
 		for (i=0;i<X.length;i++)
 		{
 		$('#GaussX').append("X["+i+"] = " + X[i] + "<br>");
