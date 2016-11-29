@@ -12,15 +12,6 @@ function menuAtivo(ativo)
 	}
 }
 
-
-
-
-if (matchMedia) {
-  var mq = window.matchMedia("(min-width: 500px)");
-  mq.addListener(WidthChange);
-  WidthChange(mq);
-}
-
 function WidthChange(mq) 
 {
   if (mq.matches) {
@@ -334,4 +325,11 @@ function gaussJacobi()
 }
 
 //Chamada de funções default
+
+if (matchMedia) {
+  var mq = window.matchMedia("(min-width: 500px)");
+  mq.addListener(WidthChange);
+  WidthChange(mq);
+}
+
 menuAtivo(null);
