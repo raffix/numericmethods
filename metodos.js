@@ -1,23 +1,27 @@
 	var aborta = 15000;
-	// media query ---- Em desenvolvimento....
-	var chartWidth = 500;
-	var chartHeight = 500;
-	
-	if (matchMedia) {
-	  var mq = window.matchMedia("(min-width: 500px)");
-	  mq.addListener(WidthChange);
-	  WidthChange(mq);
-	}
-	function WidthChange(mq) {
-	  if (mq.matches) {
-		chartWidth = 500;
-		chartHeight = 500;
-	  } else {
-		chartWidth = 200;
-		chartHeight = 200;
+	// media query 
+	if($(window).width() > 580){
+		  var chartWidth = $(window).width()*0.30;
+		  var chartHeight = $(window).height()*0.30;		  
 	  }
-
-	}
+	  else {
+		var	chartWidth = $(window).width()*0.90;
+		var	chartHeight = $(window).height()*0.50;				  
+	  }
+	
+	$( window ).resize(function() {
+	  var g = 1;
+	  if($(window).width() > 580){
+		  chartWidth = $(window).width()*0.30;
+		  chartHeight = $(window).height()*0.30;
+		  function drawChart(data, annotat, metodo);
+	  }
+	  else {
+		  chartWidth = $(window).width()*0.90;
+		  chartHeight = $(window).height()*0.50;
+		  bisseccao();		  
+	  }
+	});
 	
 	//----------------
 	
@@ -48,8 +52,8 @@
     
     function drawChart(data, annotat, metodo)
     {    	
-		//var Steste = '{	"target": "'+metodo+'", "width": '+chartWidth+', "height": '+chartWidth+',"xAxis": { "label": "real" }, "yAxis": { "label": "imaginary"},"grid": "true","data": ['+data+'], "annotations": ['+annotat+']}';
-		//functionPlot(JSON.parse(Steste));
+		var Steste = '{	"target": "'+metodo+'", "width": '+chartWidth+', "height": '+chartWidth+', "disableZoom": "true", "xAxis": { "label": "real" }, "yAxis": { "label": "imaginary"},"data": ['+data+'], "annotations": ['+annotat+']}';
+		functionPlot(JSON.parse(Steste));
 		
 	}
 
@@ -60,7 +64,7 @@
 
 	// Metodos
     
-    function bisseccao()
+    function bisseccao(g)
     {
 		$('#plotBissec').html(" ");
 		var funcao, intervalo, epson, x, a, b, fx, fa, i;	
