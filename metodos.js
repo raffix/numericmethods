@@ -14,12 +14,17 @@
 	  if($(window).width() > 580){
 		  chartWidth = $(window).width()*0.30;
 		  chartHeight = $(window).height()*0.30;
-		  function drawChart(data, annotat, metodo);
+		  bisseccao();
+		  cordas();
+		  newton();	
+		  
 	  }
 	  else {
 		  chartWidth = $(window).width()*0.90;
 		  chartHeight = $(window).height()*0.50;
-		  bisseccao();		  
+		  bisseccao();
+		  cordas();
+		  newton();		 	  
 	  }
 	});
 	
@@ -64,6 +69,7 @@
 
 	// Metodos
     
+		
     function bisseccao(g)
     {
 		$('#plotBissec').html(" ");
@@ -78,7 +84,9 @@
 		i = parseInt(0);		
 		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
 		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
-
+		if(funcao == "" || intervalo == "" || $('#bisseccaoEpson').val() == ""){
+			return;
+		}
 		while (Math.abs(fx) > epson) {
 			x = (a + b)/2;
 			fx = math.eval(replaceX(funcao,x));
@@ -121,7 +129,11 @@
 		x  = (b* fa - a*fb)/(fa-fb);
 		fx = math.eval(funcao.replace("x",String(x)));
 		i  = parseInt(0);
-			
+		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
+		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
+		if(funcao == "" || intervalo == "" || $('#cordasEpson').val() == ""){
+			return;
+		}	
 		if(fa * fx > 0) {
 			while (Math.abs(fx) > epson) {
 				x  = ((x* fa) - (a*fx))/(fa-fx);
@@ -143,7 +155,7 @@
 				}
 			}
 		}
-
+		drawChart(data, annotat, metodo);
 		if (i < aborta) {
 			$('#cordasIteracoes').html(String(i));
 			$('#cordasX').html(String(x));
@@ -168,7 +180,11 @@
 		x = b;
 		fdx = math.eval(fdx.replace(/x/g,String(x)));
 		fdxx = math.eval(fdxx.replace(/x/g,String(x)));
-
+		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
+		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
+		if(funcao == "" || intervalo == "" || $('#newtonEpson').val() == ""){
+			return;
+		}
 		if(fdxx > 0) 
 		{
 			if(fdx > 0){
@@ -199,7 +215,7 @@
 				break;
 			}
 		}
-
+		drawChart(data, annotat, metodo);
 		if (i < aborta) {
 			$('#newtonIteracoes').html(String(i));
 			$('#newtonX').html(String(x));
