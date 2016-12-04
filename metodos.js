@@ -1,6 +1,9 @@
-var menu = [ ['Raízes', 'index.html'], ['SELA', 'sistemas.html']];
-var aborta = 15000;
+var menu = [ 
+	['Raízes', 'index.html'], 
+	['SELA', 'sistemas.html']
+];
 
+var aborta = 15000;
 // media query ---- Em desenvolvimento....
 var chartWidth = 500;
 var chartHeight = 500;
@@ -21,8 +24,8 @@ function WidthChange(mq)
 	chartWidth = 200;
 	chartHeight = 200;
   }
-
 }
+
 //----------------
 
 function replaceX(funcao, x)
@@ -269,8 +272,7 @@ function Jacobi()
 	for (i=0;i<X.length;i++)
 	{
 	$('#JacobiX').append("X["+i+"] = " + X[i] + "<br>");
-	}
-	
+	}	
 }
 
 
