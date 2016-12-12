@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+	<title>Métodos Numéricos</title>
+</head>
+<body>
+	<div class="container">	
+		<div class="row">
+			<div class="col s12 m12">
+				<nav>
+					<div class="nav-wrapper green darken-3">
+					  <ul id="nav-mobile" class="hide-on-med-and-down">
+						<li><a href="index.html">Raízes</a></li>
+						<li><a href="sistemas.html">Sistemas Lineares</a></li>
+						<li><a href="#">Interpolação</a></li>
+						<li><a href="MQ.html">Ajuste de Curvas</a></li>
+					  </ul>
+					</div>
+				</nav>
+			</div>
+		</div>		
+		<div class="row" id="MinimosQuadrados">
+			<div class="col s12 m6">
+				<div class="card purple darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">Minimos Quadrados</span>
+						<div class="entradas s12 m6">							
+							<input type="text" id="MQX" placeholder="Informe os valores de 'x' ex: 139 126 90 87">
+							<input type="text" id="MQY" placeholder="Informe os valores de 'y' ex: 122 114 86 134">														
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="waves-effect waves-light btn green darken-1" onclick="MinimosQuadrados()">Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#MinimosQuadrados")' >Limpar</button>
+						
+					</div>
+				</div>
+			</div>
+			<div class="col s12 m6">
+				<div class="card blue darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">Resultado</span>
+						<div class="saidas s12 m6">							
+							<p>Valor de A : <span id="MQA"></span></p>
+							<p>Valor de B : <span id="MQB"></span></p>
+						</div>
+					</div>
+			  </div>
+			</div>
+			<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	          		<div class="card-content white-text">
+	          			<span class="card-title">Gráfico</span>						
+	          		</div>					
+	          	</div>
+				<div id = "plotMQ"></div>
+			</div>	
+		</div>		
+	</div>
+		
+		
+	
+	
+	
+	<script type="text/javascript" src="jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="math.js"></script>
+	<script type="text/javascript" src="metodos.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
+</body>
+</html>

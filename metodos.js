@@ -16,7 +16,7 @@
 		  chartHeight = $(window).height()*0.30;
 		  bisseccao();
 		  cordas();
-		  newton();	
+		  newton();			  
 		  
 	  }
 	  else {
@@ -24,12 +24,16 @@
 		  chartHeight = $(window).height()*0.50;
 		  bisseccao();
 		  cordas();
-		  newton();		 	  
+		  newton();		  	
 	  }
 	});
 	
 	//----------------
 	
+	// Multi-Page
+	
+	
+	//----------------
 	function replaceX(funcao, x)
 	{
 		var expression = /[xX]/g;
@@ -57,8 +61,7 @@
     
     function drawChart(data, annotat, metodo)
     {    	
-		var Steste = '{	"target": "'+metodo+'", "width": '+chartWidth+', "height": '+chartWidth+', "disableZoom": "true", "xAxis": { "label": "real" }, "yAxis": { "label": "imaginary"},"data": ['+data+'], "annotations": ['+annotat+']}';
-		functionPlot(JSON.parse(Steste));
+		functionPlot(JSON.parse(plot));
 		
 	}
 
@@ -74,7 +77,7 @@
     {
 		$('#plotBissec').html(" ");
 		var funcao, intervalo, epson, x, a, b, fx, fa, i;	
-		var metodo = "#plotBissec"
+		var metodo = "#plotBissec";
 		funcao = $('#bisseccaoFormula').val();
 		intervalo = $('#bisseccaoIntervalo').val().split("/");
 		epson = parseFloat($('#bisseccaoEpson').val());
@@ -83,7 +86,7 @@
 		fx = parseFloat(1);
 		i = parseInt(0);		
 		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
-		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
+		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';		
 		if(funcao == "" || intervalo == "" || $('#bisseccaoEpson').val() == ""){
 			return;
 		}
@@ -341,3 +344,53 @@
 		$('#GaussX').append("X["+i+"] = " + X[i] + "<br>");
 		}
 	}
+
+	function MinimosQuadrados() 
+	{		
+		$('#MQA').html(" ");
+		$('#MQB').html(" ");
+		var X =  $('#MQX').val();
+		var Y =  $('#MQY').val();		
+		var x = X.split(" ");
+		var y = Y.split(" ");
+		var n = x.length;
+		var i, sumX = 0, sumY = 0, sumX2 = 0, sumXY = 0, a, b, formula;	
+		var annotat = ' ';	
+		for(i = 0; i<n; i++){
+			sumX += x[i]*1;
+			sumY += y[i]*1;
+			sumX2 += Math.pow(x[i], 2);
+			sumXY += x[i]*y[i];
+		}		
+		a = (sumXY * n - sumY * sumX)/(sumX2 * n - sumX * sumX)
+		b =(sumY * sumX2 - sumXY * sumX)/(n * sumX2 - sumX * sumX);
+		formula = a+'x'+b
+		var data = '{"fn": "'+formula+'"},{ "points": [['+x[0]+', '+y[0]+']';
+		for(i=1; i<n; i++){
+			data += ',['+x[i]+', '+y[i]+']'; 
+		} 
+		data += '],"fnType": "points", "graphType": "scatter"}'
+		var annotat = '{}';
+		$('#MQA').append(a + "<br>");
+		$('#MQB').append(b);
+		drawChart(data, annotat, '#plotMQ');	
+		
+	}
+/*	
+	function trapezio() 
+	{
+		
+	$('#trapezioX').html(" ");
+	var i;	
+	var a =  $('#trapezioA').val();
+	var b =  $('#trapezioB').val();
+	var n =  $('#trapezioN').val();
+	var h = (b-a)/n;
+	var integral = h/2*(f(a)+f*(b))
+	for (i=1; i<n; i++){
+		integral = integral + h*f(a+i*h);		
+	}
+	$('#trapezioX').append(integral);
+	
+	}
+*/
