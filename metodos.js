@@ -109,37 +109,37 @@
 		funcao = $('#cordasFormula').val();
 		intervalo = $('#cordasIntervalo').val().split("/");
 		epson = parseFloat($('#cordasEpson').val());
+		funcao = substitui(funcao);
 		
 		a  = parseFloat(intervalo[0]);
 		b  = parseFloat(intervalo[1]);
-		fa = math.eval(funcao.replace("x",String(a)));
-		fb = math.eval(funcao.replace("x",String(b)));
+		fa = math.eval(replaceX(funcao,a));
+		fb = math.eval(replaceX(funcao,b));
 		x  = (b* fa - a*fb)/(fa-fb);
-		fx = math.eval(funcao.replace("x",String(x)));
+		fx = math.eval(replaceX(funcao,x));
 		i  = parseInt(0);
-			
+		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
+		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
+		
+		
 		if(fa * fx > 0) {
 			while (Math.abs(fx) > epson) {
 				x  = ((x* fa) - (a*fx))/(fa-fx);
-				fx = math.eval(funcao.replace("x",String(x)));
+				fx = math.eval(replaceX(funcao,x));
 				i++;
-				if (i > aborta) {
-					exibeErro();
-					break;
-				}
+				data += ',{ "points": [['+x+', -1],['+x+', 1]], "fnType": "points", "graphType": "polyline"}';
+				annotat += ',{"x": '+x+'}';
 			}
 		} else {
 			while (Math.abs(fx) > epson ){
 				x = ((b* fx) - (x*fb))/(fx-fb);
-				fx = math.eval(funcao.replace("x",String(x)));
+				fx = math.eval(replaceX(funcao,x));
 				i++;
-				if (i > aborta) {
-					exibeErro();
-					break;
-				}
+				data += ',{ "points": [['+x+', -1],['+x+', 1]], "fnType": "points", "graphType": "polyline"}';
+				annotat += ',{"x": '+x+'}';
 			}
 		}
-
+		//drawChart(data, annotat, metodo);
 		if (i < aborta) {
 			$('#cordasIteracoes').html(String(i));
 			$('#cordasX').html(String(x));
