@@ -1,23 +1,34 @@
 	var aborta = 15000;
 	// media query ---- Em desenvolvimento....
-	var chartWidth = 500;
-	var chartHeight = 500;
-	
-	if (matchMedia) {
-	  var mq = window.matchMedia("(min-width: 500px)");
-	  mq.addListener(WidthChange);
-	  WidthChange(mq);
-	}
-	function WidthChange(mq) {
-	  if (mq.matches) {
-		chartWidth = 500;
-		chartHeight = 500;
-	  } else {
-		chartWidth = 200;
-		chartHeight = 200;
+	if($(window).width() > 580){
+		  var chartWidth = $(window).width()*0.30;
+		  var chartHeight = $(window).height()*0.30;		  
 	  }
-
-	}
+	  else {
+		var	chartWidth = $(window).width()*0.90;
+		var	chartHeight = $(window).height()*0.50;				  
+	  }
+	
+	$( window ).resize(function() {
+	  var g = 1;
+	  if($(window).width() > 580){
+		  chartWidth = $(window).width()*0.30;
+		  chartHeight = $(window).height()*0.30;
+		  bisseccao();
+		  cordas();
+		  newton();
+		  MinimosQuadrados(); 		
+		  
+	  }
+	  else {
+		  chartWidth = $(window).width()*0.90;
+		  chartHeight = $(window).height()*0.50;
+		  bisseccao();
+		  cordas();
+		  newton();
+		  MinimosQuadrados(); 	
+	  }
+	});
 	
 	//----------------
 	
@@ -47,9 +58,17 @@
    
     
     function drawChart(data, annotat, metodo)
-    {    	
-		//var Steste = '{	"target": "'+metodo+'", "width": '+chartWidth+', "height": '+chartWidth+',"xAxis": { "label": "real" }, "yAxis": { "label": "imaginary"},"grid": "true","data": ['+data+'], "annotations": ['+annotat+']}';
-		//functionPlot(JSON.parse(Steste));
+    {   	
+		
+		functionPlot({
+			target: metodo,
+			xAxis: {domain: [-100, 100]},
+			yAxis: {domain: [-100, 100]},
+			width: chartWidth,
+			height: chartHeight,	
+			data: JSON.parse(data), 
+			annotations: JSON.parse(annotat)
+		});
 		
 	}
 
@@ -65,6 +84,9 @@
 		$('#plotBissec').html(" ");
 		var funcao, intervalo, epson, x, a, b, fx, fa, i;	
 		var metodo = "#plotBissec"
+		if($('#bisseccaoFormula').val() == undefined || $('#bisseccaoIntervalo').val() == undefined || $('#bisseccaoEpson').val() == undefined){
+			return;
+		}
 		funcao = $('#bisseccaoFormula').val();
 		intervalo = $('#bisseccaoIntervalo').val().split("/");
 		epson = parseFloat($('#bisseccaoEpson').val());
@@ -72,9 +94,8 @@
 		b = parseFloat(intervalo[1]);
 		fx = parseFloat(1);
 		i = parseInt(0);		
-		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
-		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
-
+		var data = '[{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
+		var annotat = '[{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}]';	
 		while (Math.abs(fx) > epson) {
 			x = (a + b)/2;
 			fx = math.eval(replaceX(funcao,x));
@@ -106,6 +127,9 @@
 		$('#plotCordas').html(" ");
 		var funcao, intervalo, epson, x, a, b, fx, fa, fb, i;
 		var metodo = "#plotCordas";
+		if($('#cordasFormula').val() == undefined || $('#cordasIntervalo').val() == undefined || $('#cordasEpson').val() == undefined){
+			return;
+		}
 		funcao = $('#cordasFormula').val();
 		intervalo = $('#cordasIntervalo').val().split("/");
 		epson = parseFloat($('#cordasEpson').val());
@@ -118,8 +142,8 @@
 		x  = (b* fa - a*fb)/(fa-fb);
 		fx = math.eval(replaceX(funcao,x));
 		i  = parseInt(0);
-		var data = '{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}';
-		var annotat = '{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}';
+		var data = '[{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
+		var annotat = '[{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}]';
 		
 		
 		if(fa * fx > 0) {
@@ -139,7 +163,7 @@
 				annotat += ',{"x": '+x+'}';
 			}
 		}
-		//drawChart(data, annotat, metodo);
+		drawChart(data, annotat, metodo);
 		if (i < aborta) {
 			$('#cordasIteracoes').html(String(i));
 			$('#cordasX').html(String(x));
@@ -151,6 +175,9 @@
 		$('#plotNewton').html(" ");
 		var funcao, auxfuncao, intervalo, epson, x, a, b, fx, fdx, auxFdx, fdxx, i;
 		var metodo = "#plotNewton";
+		if($('#newtonFormula').val() == undefined || $('#newtonIntervalo').val() == undefined || $('#newtonEpson').val() == undefined){
+			return;
+		}
 		funcao 	  = $('#newtonFormula').val();
 		intervalo = $('#newtonIntervalo').val().split("/");
 		epson 	  = parseFloat($('#newtonEpson').val());
@@ -164,7 +191,8 @@
 		x = b;
 		fdx = math.eval(fdx.replace(/x/g,String(x)));
 		fdxx = math.eval(fdxx.replace(/x/g,String(x)));
-
+		var data = '[{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
+		var annotat = '[{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}]';
 		if(fdxx > 0) 
 		{
 			if(fdx > 0){
@@ -195,7 +223,7 @@
 				break;
 			}
 		}
-
+		drawChart(data, annotat, metodo);
 		if (i < aborta) {
 			$('#newtonIteracoes').html(String(i));
 			$('#newtonX').html(String(x));
@@ -320,4 +348,41 @@
 		{
 		$('#GaussX').append("X["+i+"] = " + X[i] + "<br>");
 		}
+	}
+	
+	function MinimosQuadrados() 
+	{		
+		$('#MQA').html(" ");
+		$('#MQB').html(" ");
+		if($('#MQX').val() == undefined || $('#MQY').val() == undefined){
+			return;
+		}		
+		var X =  $('#MQX').val();
+		var Y =  $('#MQY').val();		
+		var x = X.split(" ");
+		var y = Y.split(" ");
+		var n = x.length;
+		var i, sumX = 0, sumY = 0, sumX2 = 0, sumXY = 0, a, b, formula;	
+		var annotat = ' ';	
+		for(i = 0; i<n; i++){
+			sumX += x[i]*1;
+			sumY += y[i]*1;
+			sumX2 += Math.pow(x[i], 2);
+			sumXY += x[i]*y[i];
+		}		
+		a = (sumXY * n - sumY * sumX)/(sumX2 * n - sumX * sumX)
+		b =(sumY * sumX2 - sumXY * sumX)/(n * sumX2 - sumX * sumX);
+		formula = a+'x +'+b
+		var data = '[{"fn": "'+formula+'"},{ "points": [['+x[0]+', '+y[0]+']';
+		for(i=1; i<n; i++){
+			data += ',['+x[i]+', '+y[i]+']'; 
+		} 
+		data += '],"fnType": "points", "graphType": "scatter"}]'
+		var annotat = '{ }';
+		$('#MQA').append(a + "<br>");
+		$('#MQB').append(b);
+		console.log(data);
+		console.log(annotat);
+		drawChart(data, annotat, '#plotMQ');	
+		
 	}
