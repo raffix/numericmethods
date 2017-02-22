@@ -14,20 +14,15 @@
 	  if($(window).width() > 580){
 		  chartWidth = $(window).width()*0.30;
 		  chartHeight = $(window).height()*0.30;
-		  bisseccao();
-		  cordas();
-		  newton();
-		  MinimosQuadrados(); 		
-		  
 	  }
 	  else {
 		  chartWidth = $(window).width()*0.90;
-		  chartHeight = $(window).height()*0.50;
-		  bisseccao();
-		  cordas();
-		  newton();
-		  MinimosQuadrados(); 	
+		  chartHeight = $(window).height()*0.50;		
 	  }
+	  bisseccao();
+	  cordas();
+	  newton();
+	  MinimosQuadrados(); 	
 	});
 	
 	//----------------
