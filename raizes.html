@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+	<script type="text/javascript" src="jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.js"></script>
+	<title>Métodos Numéricos</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m12">
+				<nav>
+					<div class="nav-wrapper green darken-3">
+					  <ul id="nav-mobile">
+						<li><a href="index.html">Raízes</a></li>
+						<li><a href="sistemas.html">Sistemas Lineares</a></li>
+						<li><a href="#">Interpolação</a></li>
+						<li><a href="MQ.html">Ajuste de Curvas</a></li>
+					  </ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="row" id="bisseccao">
+			<div class="col s12 m6">
+				<div class="card purple darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">Bissecção</span>
+						<div class="entradas s12 m6">
+							<input type="text" id="bisseccaoFormula" placeholder="Equação / formula ex: (x^2)-3">
+							<input type="text" id="bisseccaoIntervalo" placeholder="Informe o intervalo ex: 1/2">
+							<input type="text" id="bisseccaoEpson" placeholder="Informe o epson ou precisão ex: 0.001">
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="waves-effect waves-light btn green darken-1" onclick="bisseccao()" >Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#bisseccao")' >Limpar</button>
+						
+					</div>
+	        	</div>
+	        </div>
+	       	<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	        		<div class="card-content white-text">
+	          			<span class="card-title">Resultado</span>
+	          			<div class="saidas s12 m6">
+							<p>Número de iterações : <span id="bisseccaoIteracoes"></span></p>
+							<p>Valor de X : <span id="bisseccaoX"></span></p>
+						</div>
+					</div>
+	          </div>
+			</div>
+			<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	          		<div class="card-content white-text">
+	          			<span class="card-title">Gráfico</span>						
+	          		</div>					
+	          	</div>
+				<div id = "plotBissec"></div>
+			</div>
+		</div>
+		<div class="row" id="cordas">
+			<div class="col s12 m6">
+				<div class="card purple darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">Cordas</span>
+						<div class="entradas s12 m6">
+							<input type="text" id="cordasFormula" placeholder="Equação / formula ex: (x^2)-3">
+							<input type="text" id="cordasIntervalo" placeholder="Informe o intervalo ex: 1/2">
+							<input type="text" id="cordasEpson" placeholder="Informe o epson ou precisão ex: 0.001">
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="waves-effect waves-light btn green darken-1" onclick="cordas()" >Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#cordas")' >Limpar</button>
+						
+					</div>
+	        	</div>
+	        </div>
+	       	<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	        		<div class="card-content white-text">
+	          			<span class="card-title">Resultado</span>
+	          			<div class="saidas s12 m6">
+							<p>Número de iterações : <span id="cordasIteracoes"></span></p>
+							<p>Valor de X : <span id="cordasX"></span></p>
+						</div>
+					</div>
+	          </div>
+			</div>
+			<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	          		<div class="card-content white-text">
+	          			<span class="card-title">Gráfico</span>
+	          		</div>
+	          	</div>
+				<div id = "plotCordas"></div> 
+			</div>
+		</div>
+		
+		<div class="row" id="newton">
+			<div class="col s12 m6">
+				<div class="card purple darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">newton</span>
+						<div class="entradas s12 m6">
+							<input type="text" id="newtonFormula" placeholder="Equação / formula ex: (x^2)-3">
+							<input type="text" id="newtonIntervalo" placeholder="Informe o intervalo ex: 1/2">
+							<input type="text" id="newtonEpson" placeholder="Informe o epson ou precisão ex: 0.001">
+							<input type="text" id="newtonDerivadaUm" placeholder="Informe a primeira derivada">
+							<input type="text" id="newtonDerivadaDois" placeholder="Informe a segunda derivada">
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="waves-effect waves-light btn green darken-1" onclick="newton()" >Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#newton")' >Limpar</button>
+						
+					</div>
+	        	</div>
+	        </div>
+	       	<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	        		<div class="card-content white-text">
+	          			<span class="card-title">Resultado</span>
+	          			<div class="saidas s12 m6">
+							<p>Número de iterações : <span id="newtonIteracoes"></span></p>
+							<p>Valor de X : <span id="newtonX"></span></p>
+						</div>
+					</div>
+	          </div>
+			</div>
+			<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	          		<div class="card-content white-text">
+	          			<span class="card-title">Gráfico</span>
+	          		</div>
+	          	</div>
+				<div id = "plotNewton"></div>
+			</div> 
+		</div>		
+		
+	</div>
+	<script type="text/javascript" src="math.js"></script>
+	<script type="text/javascript" src="metodos.js"></script>
+	<script type="text/javascript" src="d3.js"></script>
+	<script type="text/javascript" src="function-plot.js"></script>
+</body>
+</html>

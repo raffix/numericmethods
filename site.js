@@ -1,3 +1,17 @@
+	var menu = [
+		['Raízes', 'raizes.html'],
+		['SELA', 'sistemas.html'],
+		['Ajuste de Curvas', 'MQ.html']
+	];
+
+	function menuAtivo(ativo)
+	{
+		for (var i = 0; i < menu.length; i++) {
+			$("#nav-mobile").append('<li><a href="'+menu[i][1]+'">'+menu[i][0]+'</a></li>');
+		}
+	}
+
+
 	var aborta = 15000;
 	// media query ---- Em desenvolvimento....
 	if($(window).width() > 580){
