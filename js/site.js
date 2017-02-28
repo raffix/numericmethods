@@ -1,43 +1,16 @@
 	var menu = [
+		['Início', 'index.html'],
 		['Raízes', 'raizes.html'],
 		['SELA', 'sistemas.html'],
-		['Ajuste de Curvas', 'MQ.html']
+		['Ajuste de Curvas', 'ajustes.html']
 	];
 
-	function menuAtivo(ativo)
+	function menuAtivo()
 	{
 		for (var i = 0; i < menu.length; i++) {
 			$("#nav-mobile").append('<li><a href="'+menu[i][1]+'">'+menu[i][0]+'</a></li>');
 		}
 	}
-
-
-	var aborta = 15000;
-	// media query ---- Em desenvolvimento....
-	if($(window).width() > 580){
-		  var chartWidth = $(window).width()*0.30;
-		  var chartHeight = $(window).height()*0.30;		  
-	  }
-	  else {
-		var	chartWidth = $(window).width()*0.90;
-		var	chartHeight = $(window).height()*0.50;				  
-	  }
-	
-	$( window ).resize(function() {
-	  var g = 1;
-	  if($(window).width() > 580){
-		  chartWidth = $(window).width()*0.30;
-		  chartHeight = $(window).height()*0.30;
-	  }
-	  else {
-		  chartWidth = $(window).width()*0.90;
-		  chartHeight = $(window).height()*0.50;		
-	  }
-	  bisseccao();
-	  cordas();
-	  newton();
-	  MinimosQuadrados(); 	
-	});
 	
 	//----------------
 	
@@ -65,23 +38,7 @@
     	);
     }
    
-    
-    function drawChart(data, annotat, metodo)
-    {   	
-		
-		functionPlot({
-			target: metodo,
-			xAxis: {domain: [-100, 100]},
-			yAxis: {domain: [-100, 100]},
-			width: chartWidth,
-			height: chartHeight,	
-			data: JSON.parse(data), 
-			annotations: JSON.parse(annotat)
-		});
-		
-	}
-
-	function exibeErro()
+    function exibeErro()
 	{
 		Materialize.toast('Execução abortada. Excedido '+aborta+' iterações!', 6000); 
 	}
@@ -103,4 +60,5 @@
 	    }
 		return matrix;	
 	}
-	
+
+	menuAtivo();
