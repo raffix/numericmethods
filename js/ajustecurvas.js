@@ -102,15 +102,26 @@
 			r2d += math.pow(r2y[i]-ym, 2);
 		}
 		var r2 = 1-(r2s/r2d);
-		var data = '[{"fn": "'+funcao2+'"},{ "points": [['+r2x[0]+', '+r2y[0]+']';
-		for(i=1; i<x.length; i++){
+		var data = '[{"fn": "'+funcao2+'", "graphType": "polyline"},{ "points": [['+r2x[0]+', '+r2y[0]+']';
+		for(i=1; i<r2x.length; i++){
 			data += ',['+r2x[i]+', '+r2y[i]+']'; 
 		} 
 		data += '],"fnType": "points", "graphType": "scatter"}]'
 		var annotat = '{ }';
-			
+		var zx = r2x[0], zy = r2y[0];
+		for(i = 1; i<r2x.length; i++){
+			if(parseInt(zx) < parseInt(r2x[i])){
+				zx = r2x[i];
+			}
+			if(parseInt(zy) < parseInt(r2y[i])){
+				zy = r2y[i];			
+			}
+		}
+		zx = parseInt(zx);
+		zy = parseInt(zy);
+		zx = zx + zx*0.20;
+		zy = zy + zy*0.20;	
 		$('#MQA').append(funcao2 + "<br>");
-		$('#MQB').append(r2);
-		console.log(data);	
-		drawChart(data, annotat, '#plotMQ');			
+		$('#MQB').append(r2);		
+		drawChart(data, annotat, '#plotMQ', zx, zy);			
 	}
