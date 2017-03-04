@@ -20,14 +20,6 @@
 		var expression = /[xX]/g;
 		return funcao.replace(expression,String(x));
 	}
-
-	function substitui(funcao)
-    	{
-    		if(funcao.match(/e^/)){
-    			funcao = funcao.replace("e",math.e);
-    		}
-		return funcao;
-     	}
 	
     function limpar(metodo)
     {

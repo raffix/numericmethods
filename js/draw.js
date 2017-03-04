@@ -25,8 +25,9 @@ function drawChart(data, annotat, metodo, zx, zy)
 			
 	}
 	function plot(data, annotat, metodo, chartWidth, chartHeight, zx, zy)
-	{
-		console.log(data);
+	{		
+		zx = Math.abs(zx);
+		zy = Math.abs(zy);	
 		functionPlot({
 			target: metodo,
 			xAxis: {domain: [-zx, zx]},
