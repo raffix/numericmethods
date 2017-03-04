@@ -2,6 +2,7 @@
 		['Início', 'index.html'],
 		['Raízes', 'raizes.html'],
 		['SELA', 'sistemas.html'],
+		['Integrais', 'integrais.html'],
 		['Ajuste de Curvas', 'ajustes.html']
 	];
 
@@ -37,6 +38,11 @@
     		}
     	);
     }
+	function fxCalc(fx, x){
+		fx = fx.replace(/x/g, parseFloat(x));
+		fx = calculator.parse(fx);
+		return fx;	
+	}		
    
     function exibeErro()
 	{

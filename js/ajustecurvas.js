@@ -15,8 +15,8 @@
 		var sy =[], sx=[], sxy=[];
 		var i,j,o = 1;
 		var matrixA = [], matrixB = [];
-		if(order>x.length){
-			alert("Grau do polinomio não deve execeder a quantidade de pontos");
+		if(order>x.length-1){
+			alert("Grau do polinomio não deve execeder a quantidade de pontos-1");
 			return;
 		}
 		for(i = 0; i<order+order+1; i++){
