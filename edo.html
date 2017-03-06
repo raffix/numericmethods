@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+	<title>Métodos Numéricos</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m12">
+				<nav>
+					<div class="nav-wrapper green darken-3">
+					  <ul id="nav-mobile">
+					  </ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="row" id="edo">
+			<div class="col s12 m6">
+				<div class="card purple darken-1">
+					<div class="card-content white-text">
+						<span class="card-title">Método de Euler</span>
+						<div class="entradas s12 m6">
+							<input type="text" id="edoFx" placeholder="derivada / formula ex:  x – y + 2">
+							<input type="text" id="edoIntervalo" placeholder="Informe o intervalo ex: 0/1">
+							<input type="text" id="edoX0" placeholder="Informe o y(0) ex: 2">
+							<input type="text" id="edoH" placeholder="Informe o h ex: 0.01">
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="waves-effect waves-light btn green darken-1" onclick="edo()" >Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#edo")' >Limpar</button>
+						
+					</div>
+	        	</div>
+	        </div>
+	       	<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	        		<div class="card-content white-text">
+	          			<span class="card-title">Resultado</span>
+	          			<div class="saidas s12 m6">							
+							<p>Pontos (x, y) : <span id="edoR"></span></p>
+						</div>
+					</div>
+	          </div>
+			</div>
+			<div class="col s12 m6">
+	          	<div class="card blue darken-1">
+	          		<div class="card-content white-text">
+	          			<span class="card-title">Gráfico</span>						
+	          		</div>					
+	          	</div>
+				<div id = "plotBissec"></div>
+			</div>
+		</div>	
+	</div>
+	<script type="text/javascript" src="js/calculator.js"></script>
+	<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="js/site.js"></script>
+	<script type="text/javascript" src="js/edo.js"></script>
+	<script type="text/javascript" src="js/math.js"></script>
+	<script type="text/javascript" src="js/d3.js"></script>
+	<script type="text/javascript" src="js/function-plot.js"></script>
+	<script type="text/javascript" src="js/draw.js"></script>
+</body>
+</html>

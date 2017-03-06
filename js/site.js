@@ -32,11 +32,11 @@
     }
 	function fxCalc(fx, x){
 		fx = fx.replace(/x/g, parseFloat(x));
-		fx = calculator.parse(fx);
+		fx = parser.parse(fx);
 		return fx;	
 	}		
    
-    function exibeErro()
+    function exibeErro(aborta)
 	{
 		Materialize.toast('Execução abortada. Excedido '+aborta+' iterações!', 6000); 
 	}

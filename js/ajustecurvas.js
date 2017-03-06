@@ -102,7 +102,7 @@
 			r2d += math.pow(r2y[i]-ym, 2);
 		}
 		var r2 = 1-(r2s/r2d);
-		var data = '[{"fn": "'+funcao2+'", "graphType": "polyline"},{ "points": [['+r2x[0]+', '+r2y[0]+']';
+		var data = '[{"fn": "'+funcao2+'", "graphType": "polyline", "sampler": "builtIn"},{ "points": [['+r2x[0]+', '+r2y[0]+']';
 		for(i=1; i<r2x.length; i++){
 			data += ',['+r2x[i]+', '+r2y[i]+']'; 
 		} 

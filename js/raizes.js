@@ -14,7 +14,7 @@
 		b = parseFloat(intervalo[1]);
 		fx = parseFloat(1);
 		i = parseInt(0);		
-		var data = '[{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
+		var data = '[{"fn": "'+funcao+'", "sampler": "builtIn", "graphType": "polyline"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
 		var annotat = '[{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}]';	
 		while (Math.abs(fx) > epson) {
 			x = (a + b)/2;
@@ -27,7 +27,7 @@
 			}
 
 			if (i > aborta) {
-				exibeErro();
+				exibeErro(aborta);
 				break;
 			}
 			i++;
@@ -63,7 +63,7 @@
 		b  = parseFloat(intervalo[1]);		
 		var auxB = b;
 		var auxA = a;		
-		var data = '[{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
+		var data = '[{"fn": "'+funcao+'", "sampler": "builtIn", "graphType": "polyline"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
 		var annotat = '[{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}]';		
 		for(i = 0; i<aborta; i++){
 			x = b-((fxCalc(funcao, b)*(b-a))/(fxCalc(funcao, b)-fxCalc(funcao, a)));
@@ -83,7 +83,7 @@
 			a = b;
 			b = x;
 		}
-		exibeErro();
+		exibeErro(aborta);
 	}
 	
 	function newton()
@@ -108,7 +108,7 @@
 		x = b;
 		fdx = fxCalc(fdx, x);
 		fdxx = fxCalc(fdxx, x);
-		var data = '[{"fn": "'+funcao+'"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
+		var data = '[{"fn": "'+funcao+'", "sampler": "builtIn", "graphType": "polyline"}, { "points": [['+a+', -1],['+a+', 1]], "fnType": "points", "graphType": "polyline"},{ "points": [['+b+', -1],['+b+', 1]], "fnType": "points", "graphType": "polyline"}]';
 		var annotat = '[{"x": '+a+', "text": "Intervalo = '+a+'"}, {"x": '+b+', "text": "Intervalo = '+b+'"}]';
 		if(fdxx > 0) 
 		{
@@ -136,7 +136,7 @@
 			fdx = fxCalc(auxFdx, x);	
 			i++;
 			if (i > aborta) {
-				exibeErro();
+				exibeErro(aborta);
 				break;
 			}
 		}
