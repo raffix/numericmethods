@@ -103,20 +103,18 @@
 		}
 		var r2 = 1-(r2s/r2d);
 		var data = '[{"fn": "'+funcao2+'", "graphType": "polyline", "sampler": "builtIn"},{ "points": [['+r2x[0]+', '+r2y[0]+']';
+		var zx = r2x[0], zy = r2y[0];
 		for(i=1; i<r2x.length; i++){
 			data += ',['+r2x[i]+', '+r2y[i]+']'; 
-		} 
-		data += '],"fnType": "points", "graphType": "scatter"}]'
-		var annotat = '{ }';
-		var zx = r2x[0], zy = r2y[0];
-		for(i = 1; i<r2x.length; i++){
 			if(parseInt(zx) < parseInt(r2x[i])){
 				zx = r2x[i];
 			}
 			if(parseInt(zy) < parseInt(r2y[i])){
 				zy = r2y[i];			
 			}
-		}
+		} 
+		data += '],"fnType": "points", "graphType": "scatter"}]'
+		var annotat = '{ }';		
 		zx = parseInt(zx);
 		zy = parseInt(zy);
 		zx = zx + zx*0.20;

@@ -3,7 +3,8 @@
 		['Raízes', 'raizes.html'],
 		['SELA', 'sistemas.html'],
 		['Integrais', 'integrais.html'],
-		['Ajuste de Curvas', 'ajustes.html']
+		['Ajuste de Curvas', 'ajustes.html'],
+		['EDO', 'edo.html']	
 	];
 
 	function menuAtivo()
