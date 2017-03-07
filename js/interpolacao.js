@@ -72,8 +72,7 @@ function lagrange()
 	var xbarra = $('#LGK').val();
 	var x = X.split(" ");
 	var y = [];	
-	var ordem =  x.length;
-	var denom;
+	var ordem =  x.length;	
 	var pn;
 	var i, j;
 	if(Y.search("x") != -1){
@@ -118,57 +117,133 @@ function lagrange()
 	zy = zy + zy*0.20;
 	drawChart(data, annotat, '#plotLG', zx, zy);
 }
-/*
-function divididas(x, y, valor, ordem){
-	var saida, temp, diferenca[ordem][ordem], i, j;
 
-	for(i=1; i<ordem; i++){
-		diferenca[i][0]= ((y[i+1] - y[i])/(x[i+1]-x[i]));		
-	}
+function zeros(dimensions) {
+    var array = [];
 
-	for(j=1; j<ordem; j++){
-		for(i=1; i<ordem; i++){
-			diferenca[i][j] = ((diferenca[i+1][j-1]- diferenca[i][j-1])/(x[i+j]-x[i]));
-		}
-	}
+    for (var i = 0; i < dimensions[0]; ++i) {
+        array.push(dimensions.length == 1 ? 0 : zeros(dimensions.slice(1)));
+    }
 
-	saida = diferenca[0][0];
-	for(i=1; i<ordem; i++){
-		temp =  1.0;
-		for(j=0; j<i-1; j++){
-			temp = temp * (valor - x[j]);
-		}
-		temp = diferenca[0][i] * temp;
-		saida = saida + temp;
-	}
-
-	printf("\n\nDiferencas Divididas:");
-	printf("\nPara x = %f y = %f\n", valor, saida);
+    return array;
 }
 
-function finitas(x, y, valor, ordem){
-	var saida, temp, finita[ordem][ordem], i, n, z = abs(x[1]-x[0]), j;
-	
-	for(i=0; i<ordem; i++){
-		finita[i][0] = y[i+1]-y[i];
+function divididas(){
+	var X =  $('#DDX').val();
+	var Y =  $('#DDY').val();	
+	var xbarra = parseFloat($('#DDK').val());
+	var x = X.split(" ");
+	var y = [];	
+	var ordem =  x.length;	
+	var pn, i, j, k, p, result;	
+	if(Y.search("x") != -1){
+		for(i = 0; i<ordem; i++){
+			y[i] = fxCalc(Y, x[i]);
+		}	
 	}
-	
-	for(j=1; j<ordem; j++){
-		for(i=1; i<ordem; i++){
-			finita[i][j] = finita[i+1][j-1] - finita[i][j-1];
+	else {
+		y = Y.split(" ");	
+	}	
+	var f = zeros([ordem+1, ordem+1]);
+	for(i = 1; i<=ordem; i++){
+		y[i-1] = parseFloat(y[i-1]);
+		x[i-1] = parseFloat(x[i-1]);
+		f[i][1] = y[i-1];
+	}
+	p = ordem-1;
+	k = 1;
+	for(j = 2; j<=ordem; j++){
+		for(i = 1; i<=p; i++){
+			f[i][j] = (f[i+1][j-1] - f[i][j-1])/(x[i+k-1] - x[i-1]);
 		}
+		p = p-1;
+		k++;
 	}
-	
-	saida = finita[0][0];
-	for(i=1; i<ordem; i++){
-		temp = 1.0;
-		for(j=0; j<i-1; j++){
-			temp = temp * (z-j);
+	p = 1;
+	result = y[0];
+	for(i = 2; i<=ordem; i++){
+		p = p*(xbarra-x[i-2]);
+		result = result + p*f[1][i];
+	}
+	x.push(xbarra);
+	y.push(result);
+	pn = MinimosQuadrados(x, y, ordem-1);
+	$('#DDresult').html(result);
+	$('#DDpol').html(pn);
+	var data = '[{"fn": "'+pn+'", "graphType": "polyline", "sampler": "builtIn"},{ "points": [['+x[0]+', '+y[0]+']';
+	var zx = x[0], zy = y[0];
+	for(i=1; i<x.length; i++){
+		data += ',['+x[i]+', '+y[i]+']'; 
+		if(parseInt(zx) < parseInt(x[i])){
+			zx = x[i];
 		}
-		saida = saida + (finita[0][i]*temp);
-		printf("\n%f",saida);
-	}
+		if(parseInt(zy) < parseInt(y[i])){
+			zy = y[i];			
+		}
+	} 
+	data += '],"fnType": "points", "graphType": "scatter"}]'
+	var annotat = '[{ "y": "'+result+'", "text": "y = '+result+'" }, { "x": "'+xbarra+'", "text": "x = '+xbarra+'" }]';		
+	zx = parseInt(zx);
+	zy = parseInt(zy);
+	zx = zx + zx*0.20;
+	zy = zy + zy*0.20;
+	drawChart(data, annotat, '#plotDD', zx, zy);
+}
 
-	printf("\n\nDiferencas Finitas:");
-	printf("\nPara x = %f y = %f\n", valor, saida);
-}*/
+/*
+function finitas(){
+	var X =  $('#DFX').val();
+	var Y =  $('#DFY').val();	
+	var xbarra = $('#DFK').val();
+	var x = X.split(" ");
+	var y = [];	
+	var ordem =  x.length;	
+	var pn;	
+	if(Y.search("x") != -1){
+		for(i = 0; i<ordem; i++){
+			y[i] = fxCalc(Y, x[i]);
+		}	
+	}
+	else {
+		y = Y.split(" ");	
+	}
+	var saida = 0;
+	var delta = [], i, j;	
+	for(i=0; i<ordem; i++){
+		delta[i] = y[i];
+	}
+	for(j=0; j<ordem-1; j++){
+		for(i=1; i<ordem+1; i++){
+			delta[i] = (delta[i] - delta[i-1])/(x[i]-x[i-j]);
+		}
+	}
+	saida = delta[ordem];
+	for(i=0; i<ordem-1; i++){
+		saida = saida*(xbarra-x[i])+delta[i];	
+	}
+	x.push(xbarra);
+	y.push(saida);
+	pn = MinimosQuadrados(x, y, ordem-1);
+	$('#FNresult').html(saida);
+	$('#FNpol').html(pn);
+	var data = '[{"fn": "'+pn+'", "graphType": "polyline", "sampler": "builtIn"},{ "points": [['+x[0]+', '+y[0]+']';
+	var zx = x[0], zy = y[0];
+	for(i=1; i<x.length; i++){
+		data += ',['+x[i]+', '+y[i]+']'; 
+		if(parseInt(zx) < parseInt(x[i])){
+			zx = x[i];
+		}
+		if(parseInt(zy) < parseInt(y[i])){
+			zy = y[i];			
+		}
+	} 
+	data += '],"fnType": "points", "graphType": "scatter"}]'
+	var annotat = '[{ "y": "'+saida+'", "text": "y = '+saida+'" }, { "x": "'+xbarra+'", "text": "x = '+xbarra+'" }]';		
+	zx = parseInt(zx);
+	zy = parseInt(zy);
+	zx = zx + zx*0.20;
+	zy = zy + zy*0.20;
+	drawChart(data, annotat, '#plotDF', zx, zy);
+}
+
+*/

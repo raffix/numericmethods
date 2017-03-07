@@ -61,14 +61,14 @@
 					<div class="card-content white-text">
 						<span class="card-title">Diferenças Divididas</span>
 						<div class="entradas s12 m6">
-							<<input type="text" id="DDX" placeholder="Informe os valores de 'x' ex: 0 2 4">
+							<input type="text" id="DDX" placeholder="Informe os valores de 'x' ex: 0 2 4">
 							<input type="text" id="DDY" placeholder="Informe os valores de 'y' ou a função ex: 1 1 9 ou (x^2) - 2*x + 1">
 							<input type="text" id="DDK" placeholder="Informe o 'x' 'interpolador' ex: 1.5" >
 						</div>
 					</div>
 					<div class="card-action">
-						<button class="waves-effect waves-light btn green darken-1" onclick="cordas()" >Calcular</button>
-						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#cordas")' >Limpar</button>
+						<button class="waves-effect waves-light btn green darken-1" onclick="divididas()" >Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#divididas")' >Limpar</button>
 						
 					</div>
 	        	</div>
@@ -78,8 +78,8 @@
 	        		<div class="card-content white-text">
 	          			<span class="card-title">Resultado</span>
 	          			<div class="saidas s12 m6">
-							<p>Número de iterações : <span id="cordasIteracoes"></span></p>
-							<p>Valor de X : <span id="cordasX"></span></p>
+							<p>Valor de Y para o X interpolador: <span id="DDresult"></span></p>
+							<p>Polinomio para os pontos: <span id="DDpol"></span></p>
 						</div>
 					</div>
 	          </div>
@@ -90,7 +90,7 @@
 	          			<span class="card-title">Gráfico</span>
 	          		</div>
 	          	</div>
-				<div id = "plotCordas"></div> 
+				<div id = "plotDD"></div> 
 			</div>
 		</div>
 		
@@ -106,8 +106,8 @@
 						</div>
 					</div>
 					<div class="card-action">
-						<button class="waves-effect waves-light btn green darken-1" onclick="newton()" >Calcular</button>
-						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#newton")' >Limpar</button>
+						<button class="waves-effect waves-light btn green darken-1" onclick="finitas()" >Calcular</button>
+						<button class="waves-effect waves-light btn red darken-1" onclick='limpar("#finitas")' >Limpar</button>
 						
 					</div>
 	        	</div>
@@ -117,8 +117,8 @@
 	        		<div class="card-content white-text">
 	          			<span class="card-title">Resultado</span>
 	          			<div class="saidas s12 m6">
-							<p>Número de iterações : <span id="newtonIteracoes"></span></p>
-							<p>Valor de X : <span id="newtonX"></span></p>
+							<p>Valor de Y para o X interpolador: <span id="DFresult"></span></p>
+							<p>Polinomio para os pontos: <span id="DFpol"></span></p>
 						</div>
 					</div>
 	          </div>
@@ -129,7 +129,7 @@
 	          			<span class="card-title">Gráfico</span>
 	          		</div>
 	          	</div>
-				<div id = "plotNewton"></div>
+				<div id = "plotDF"></div>
 			</div> 
 		</div>		
 		
