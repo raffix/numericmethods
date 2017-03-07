@@ -2,6 +2,7 @@
 		['Início', 'index.html'],
 		['Raízes', 'raizes.html'],
 		['SELA', 'sistemas.html'],
+		['Interpolação', 'interpolacao.html'],
 		['Integrais', 'integrais.html'],
 		['Ajuste de Curvas', 'ajustes.html'],
 		['EDO', 'edo.html']	

@@ -40,24 +40,24 @@ function MinimosQuadrados(x, y, order)
 		var k = solution.length - 1;		
 		var funcao = "";
 		for(i = 0; i<solution.length; i++){
-			if(k == 0){
-				funcao += Math.round(solution[i] * 10000)/10000;	
+			if(k == 0){				
+				funcao += solution[i];	
 			}
 			else if(k == 1){
 				if(solution[i+1] < 0) {
-					funcao += Math.round(solution[i] * 10000)/10000 + 'x ';
+					funcao += solution[i] + 'x ';					
 				}
 				else {
-					funcao += Math.round(solution[i] * 10000)/10000 + 'x + ';
+					funcao += solution[i] + 'x + ';					
 				}
 				
 			}				
 			else{
 				if(solution[i+1] < 0) {
-					funcao += Math.round(solution[i] * 10000)/10000 + 'x^'+k + " ";					
+					funcao += solution[i] + 'x^'+k + " ";					
 				}
 				else {
-					funcao += Math.round(solution[i] * 10000)/10000 + 'x^'+k + " + ";					
+					funcao += solution[i] + 'x^'+k + " + ";					
 				}				
 			}
 			k--;
@@ -190,7 +190,6 @@ function divididas(){
 	drawChart(data, annotat, '#plotDD', zx, zy);
 }
 
-/*
 function finitas(){
 	var X =  $('#DFX').val();
 	var Y =  $('#DFY').val();	
@@ -198,7 +197,7 @@ function finitas(){
 	var x = X.split(" ");
 	var y = [];	
 	var ordem =  x.length;	
-	var pn;	
+	var pn, temp, i, j;	
 	if(Y.search("x") != -1){
 		for(i = 0; i<ordem; i++){
 			y[i] = fxCalc(Y, x[i]);
@@ -207,25 +206,35 @@ function finitas(){
 	else {
 		y = Y.split(" ");	
 	}
-	var saida = 0;
-	var delta = [], i, j;	
-	for(i=0; i<ordem; i++){
-		delta[i] = y[i];
+	for(i = 0; i<ordem; i++){
+		x[i] = parseFloat(x[i]);
+		y[i] = parseFloat(y[i]);
 	}
-	for(j=0; j<ordem-1; j++){
-		for(i=1; i<ordem+1; i++){
-			delta[i] = (delta[i] - delta[i-1])/(x[i]-x[i-j]);
+	var f = [], faux;
+		
+	for (i = 0; i < ordem; i++){
+		f[i] = [y[i]];
+	}
+    for(i = 1; i < ordem; i++){
+		for(j = 0; j < ordem-i; j++){
+			faux = f[j+1][i-1] - f[j][i-1]; 
+			f[j].push(faux);
+		}	
+	}
+	var z = (xbarra - x[0])/(Math.abs(x[1] - x[0]));
+	var saida = y[0];
+	for (i = 1; i < ordem; i++) {
+		temp = f[0][i] / math.factorial(i);
+		for (j = 0; j < i; j++){
+			temp = temp*(z - j);
 		}
-	}
-	saida = delta[ordem];
-	for(i=0; i<ordem-1; i++){
-		saida = saida*(xbarra-x[i])+delta[i];	
+		saida += temp;
 	}
 	x.push(xbarra);
 	y.push(saida);
 	pn = MinimosQuadrados(x, y, ordem-1);
-	$('#FNresult').html(saida);
-	$('#FNpol').html(pn);
+	$('#DFresult').html(saida);
+	$('#DFpol').html(pn);
 	var data = '[{"fn": "'+pn+'", "graphType": "polyline", "sampler": "builtIn"},{ "points": [['+x[0]+', '+y[0]+']';
 	var zx = x[0], zy = y[0];
 	for(i=1; i<x.length; i++){
@@ -246,4 +255,20 @@ function finitas(){
 	drawChart(data, annotat, '#plotDF', zx, zy);
 }
 
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
