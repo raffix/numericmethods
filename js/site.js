@@ -12,7 +12,9 @@
 	{
 		for (var i = 0; i < menu.length; i++) {
 			$("#nav-mobile").append('<li><a href="'+menu[i][1]+'">'+menu[i][0]+'</a></li>');
+			$("#nav-mobile2").append('<li><a href="'+menu[i][1]+'">'+menu[i][0]+'</a></li>');
 		}
+		$('.button-collapse').sideNav();
 	}
 	
 	function replaceX(funcao, x)
