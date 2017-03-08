@@ -15,8 +15,6 @@
 		}
 	}
 	
-	//----------------
-	
 	function replaceX(funcao, x)
 	{
 		var expression = /[xX]/g;
@@ -43,9 +41,7 @@
 		Materialize.toast('Execução abortada. Excedido '+aborta+' iterações!', 6000); 
 	}
 
-	function matrixParser(x, order){
-		//var order = x.indexOf(";");
-		//order = (order+1)/2;
+	function matrixParser(x, order){		
 		var p = x.indexOf(";");
 	    order = parseFloat(order.charAt(0));
 		x = x.replace(/;/g,"");
