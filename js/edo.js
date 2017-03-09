@@ -1,7 +1,7 @@
 function calcFxy(funcao, x,y){
 	funcao = funcao.replace(/x/g, parseFloat(x));
 	funcao = funcao.replace(/y/g, parseFloat(y));
-	funcao = parser.parse(funcao);
+	funcao = math.eval(funcao);
 	return funcao;
 }
 

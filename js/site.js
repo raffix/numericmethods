@@ -34,7 +34,7 @@
     }
 	function fxCalc(fx, x){
 		fx = fx.replace(/x/g, parseFloat(x));
-		fx = parser.parse(fx);
+		fx = math.eval(fx);
 		return fx;	
 	}		
    
