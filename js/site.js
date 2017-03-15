@@ -15,6 +15,12 @@
 			$("#nav-mobile2").append('<li><a href="'+menu[i][1]+'">'+menu[i][0]+'</a></li>');
 		}
 		$('.button-collapse').sideNav();
+
+		//adiciona footer
+
+		var footer = '<div class="row" id="footer"><div class="col m12 s12 green darken-3"><p style="text-align: center; color: white;">Desenvolvido por:</br> Leonardo Belinski, Mateus Aceto e Raffael C. Rossi. </br>Sob a orientação do professor doutor Pedro Borges.</br><a href="www.uffs.edu.br">UFFS</a></p> </div></div>';
+		$('.container').append(footer);
+		return;
 	}
 	
 	function replaceX(funcao, x)
