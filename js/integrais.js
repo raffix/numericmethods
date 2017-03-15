@@ -47,6 +47,9 @@ function simp2()
 		var a = parseFloat(intervalo[0]);
 		var b = parseFloat(intervalo[1]);	
 		var n = parseFloat($('#S2P').val());
+		if(parseFloat(n)%3 != 0){
+			exibeAlerta("Número de pontos deve ser múltiplo de 3!")
+		}
 		var i;
 		var h = (b - a) / n;		
 		var soma = fxCalc(funcao, a) + fxCalc(funcao, b);

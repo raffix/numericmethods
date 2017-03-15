@@ -48,6 +48,13 @@
 	{
 		Materialize.toast('Execução abortada. Excedido '+aborta+' iterações!', 6000); 
 	}
+	
+	function exibeAlerta(text)
+	{
+		Materialize.toast(text, 3500); 
+	}
+	
+	
 
 	function matrixParser(x, order){		
 		var p = x.indexOf(";");
