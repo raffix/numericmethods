@@ -18,7 +18,7 @@
 
 		//adiciona footer
 
-		var footer = '<div class="row" id="footer"><div class="col m12 s12 green darken-3"><p style="text-align: center; color: white;">Desenvolvido por:</br> Leonardo Belinski, Mateus Aceto e Raffael C. Rossi. </br>Sob a orientação do professor doutor Pedro Borges.</br><a href="www.uffs.edu.br">UFFS</a></p> </div></div>';
+		var footer = '<footer class="row" id="footer"><div class="col m12 s12 green darken-3"><p style="text-align: center; color: white;">Desenvolvido por:</br> Leonardo Belinski, Mateus Aceto e Raffael C. Rossi. </br>Sob a orientação do professor doutor Pedro Borges.</br><a href="www.uffs.edu.br">UFFS</a></p> </div></footer>';
 		$('.container').append(footer);
 		return;
 	}
